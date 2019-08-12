@@ -1,0 +1,36 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t arma/docker-multiconteiner -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true arma/docker-multiconteiner npm run test
+
+after_success:
+  - docker build -t arma/docker-multiconteiner ./client
+  - docker build -t arma/docker-multiconteiner ./nginx
+  - docker build -t arma/docker-multiconteiner ./server
+  - docker build -t arma/docker-multiconteiner ./worker
+  # Log in to the docker CLI
+  - echo "$docHash" | docker login -u "$docId" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push artir3/docker-course-client
+  - docker push artir3/docker-course-nginx
+  - docker push artir3/docker-course-server
+  - docker push artir3/docker-course-worker
+
+#deploy:
+#  provider: elasticbeanstalk
+#  region: "eu-central-1"
+#  app: "docker-react"
+#  env: "DockerReact-env"
+#  bucket_name: "elasticbeanstalk-eu-central-1-701321592228"
+#  bucket_path: "docker-react"
+#  on:
+#    branch: master
+#  access_key_id: "$ACCESS_KEY_ID"
+#  secret_access_key:
+#    secure: "$SECRET_KEY"
