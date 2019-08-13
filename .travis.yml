@@ -10,10 +10,10 @@ script:
   - docker run -e CI=true artir3/docker-multiconteiner npm run test
 
 after_success:
-  - docker build -t artir3/docker-multiconteiner ./client
-  - docker build -t artir3/docker-multiconteiner ./nginx
-  - docker build -t artir3/docker-multiconteiner ./server
-  - docker build -t artir3/docker-multiconteiner ./worker
+  - docker build -t artir3/docker-course-client ./client
+  - docker build -t artir3/docker-course-nginx ./nginx
+  - docker build -t artir3/docker-course-server ./server
+  - docker build -t artir3/docker-course-worker ./worker
   # Log in to the docker CLI
   - echo "$docHash" | docker login -u "$docId" --password-stdin
   # Take those images and push them to docker hub
