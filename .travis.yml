@@ -22,16 +22,16 @@ after_success:
   - docker push artir3/docker-course-server
   - docker push artir3/docker-course-worker
 
-deploy:
-  provider: elasticbeanstalk
-  region: "eu-central-1"
-  app: "docker-multiconteiner"
-  env: "DockerMulticonteiner-env"
-  bucket_name: "elasticbeanstalk-eu-central-1-701321592228"
-  bucket_path: "docker-multiconteiner"
-  on:
-    branch: master
-  access_key_id: 
-    secure: "$ACCESS_KEY_ID"
-  secret_access_key:
-    secure: "$SECRET_KEY"
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "eu-central-1"
+#   app: "docker-multiconteiner"
+#   env: "DockerMulticonteiner-env"
+#   bucket_name: "elasticbeanstalk-eu-central-1-701321592228"
+#   bucket_path: "docker-multiconteiner"
+#   on:
+#     branch: master
+#   access_key_id: 
+#     secure: "$ACCESS_KEY_ID"
+#   secret_access_key:
+#     secure: "$SECRET_KEY"
